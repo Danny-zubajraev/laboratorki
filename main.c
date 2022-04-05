@@ -1,43 +1,49 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+
+double func(double h, long int n) {
+
+    double p = 0, b = M_PI, x = b - h / 2;
+
+    for (n; n != 0; n--) {
+        double y = (b / 2 < x && x <= b)
+                   ?pow(2.0, x) - 2.0 + x * x
+                   :sqrt(x) * pow(b, -x * x);
+        p = p + y;
+        b -= h;
+        x = b - h / 2;
+    }
+    p *= h;
+    return (p);
+}
 
 int main() {
+    double h, p, e;
+    long int n;
 
-    float a, b, x;
-    printf("Vvedite a, b, x\n");
+    printf("vvedite h\n");
+    scanf("%lf", &h);
+    printf("vvedite e\n");
+    scanf("%lf", &e);
 
-    printf("a=");
-    scanf("%f", &a);
-    printf("b=");
-    scanf("%f", &b);
-    printf("x=");
-    scanf("%f", &x);
-    if (a + b < x) {
-        if (x == 0) {
-            printf("znamenatel = 0\n");
-        } else {
-            x = (a + b) / x;
-            printf("rezultat = %.3f\n", x);
+
+    n = M_PI / h;
+
+    /*while (e != 0)
+    {
+        p = func(h, n);
+        printf ("integral = %lf\n", p);
+        p = fabs(func(h, n*2) - p)/3;
+        if (p > e)
+        {
+            n = n * 2;
+            h = h / 2;
         }
-        printf("a+b menshe x\n");
-    } else if (a + b > x) {
-        if (a + b == 0) {
-            printf("znamenatel = 0\n");
-        } else {
-            x = x / (a + b);
-            printf("rezultat = %.3f\n", x);
-        }
-        printf("a+b bolshe x\n");
-    } else {
-        if (x == 0) {
-            printf("znamenatel = 0\n");
-        } else {
-            x = b / x;
-            printf("rezultat = %.3f\n", x);
-        }
-        printf("a+b = x\n");
-    }
+        else
+            e = 0;
+    } */
+    p=func(h, n);
 
-
-    return 0;
+    printf ("integral = %lf\n", p);
 }
