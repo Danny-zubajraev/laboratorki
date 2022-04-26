@@ -1,49 +1,31 @@
-#include <stdio.h>
 #include <math.h>
-#include <stdlib.h>
+#include <stdio.h>
 
-double func(double h, long int n) {
-
-    double p = 0, b = M_PI, x = b - h / 2;
-
-    for (n; n != 0; n--) {
-        double y = (b / 2 < x && x <= b)
-                   ?pow(2.0, x) - 2.0 + x * x
-                   :sqrt(x) * pow(b, -x * x);
-        p = p + y;
-        b -= h;
-        x = b - h / 2;
+double f (double hh, long int nn)
+{
+    double y=0, x=0, sum=0;
+    x = M_PI - hh/2;
+    for (nn; nn!=0; nn--)
+    {
+        if (x > M_PI/2 && x < M_PI)
+            y = sqrt(x)*pow(M_E, -(x*x));
+        else
+            y = pow(2.0, x) - 2 + x*x;
+        x = x-hh;
+        sum = sum + y;
     }
-    p *= h;
-    return (p);
+    sum = sum*hh;
+    return (sum);
 }
-
-int main() {
-    double h, p, e;
+int main()
+{
+    double h, sum;
     long int n;
 
-    printf("vvedite h\n");
+    printf("vvedite shag\n");
     scanf("%lf", &h);
-    printf("vvedite e\n");
-    scanf("%lf", &e);
-
-
     n = M_PI / h;
-
-    /*while (e != 0)
-    {
-        p = func(h, n);
-        printf ("integral = %lf\n", p);
-        p = fabs(func(h, n*2) - p)/3;
-        if (p > e)
-        {
-            n = n * 2;
-            h = h / 2;
-        }
-        else
-            e = 0;
-    } */
-    p=func(h, n);
-
-    printf ("integral = %lf\n", p);
+    sum = f(h, n);
+    printf("sum = %lf", sum);
+    return 0;
 }
