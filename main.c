@@ -1,31 +1,43 @@
 #include <math.h>
 #include <stdio.h>
 
-double f (double hh, long int nn)
+double f (long int n)
 {
-    double y=0, x=0, sum=0;
-    x = M_PI - hh/2;
-    for (nn; nn!=0; nn--)
+    double sum=0, x, y, h;
+    h = M_PI/n;
+    for (x=M_PI/2/n; x <= M_PI; x += h)
     {
         if (x > M_PI/2 && x < M_PI)
             y = sqrt(x)*pow(M_E, -(x*x));
         else
             y = pow(2.0, x) - 2 + x*x;
-        x = x-hh;
         sum = sum + y;
     }
-    sum = sum*hh;
+    sum = sum*h;
     return (sum);
 }
 int main()
 {
-    double h, sum;
-    long int n;
+    double sum1, sum2 = 0, e;
+    long int n=1;
 
-    printf("vvedite shag\n");
-    scanf("%lf", &h);
-    n = M_PI / h;
-    sum = f(h, n);
-    printf("sum = %lf", sum);
+    printf("vvedite tochnost\n");
+    scanf("%lf", &e);
+
+
+    while (1)
+    {
+        sum1 = f(n);
+
+      if((fabs(sum2-sum1)/3) < e)
+          break;
+      else
+      {
+          n *=2;
+          sum2 = sum1;
+      }
+
+    }
+    printf("I1 = %.5lf", sum1);
     return 0;
 }
