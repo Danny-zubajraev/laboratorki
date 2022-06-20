@@ -1,29 +1,43 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-//рекурсивная функция
-unsigned int stR(unsigned int n, unsigned int a)
+void fill (int n, int a[])
 {
-    if (n==0) return (1);
-    a = stR(n-1, a) * a;
-    return a;
-}
-
-unsigned int stC(unsigned int n, unsigned int a)
-{
-    unsigned int i, p = 1;
+    int i;
     for (i=0; i<n; i++)
-        p *= a;
-    return p;
-
+        a[i] = rand() % 4 + 2;
 }
 
-int main()
+void sp (int a[], int n)
 {
-    unsigned int n, a;
-    printf("write the number and ^ \nnumber -> ");
-    scanf("%u", &a);
-    printf("^ -> ");
-    scanf("%u", &n);
-    printf("rec %u^%u = %u\n", a, n, stR(n, a));
-    printf("cycle %u^%u = %u\n", a, n, stC(n, a));
+    int i, j, b[n];
+    for (i=0; i<n; i++)
+    {
+        
+        for (j=i+1; j<n; j++)
+        {
+            if (a[i] == a[j])
+            {
+                b[i] = a[i] + a[j];
+                b[j] = a[i] * a[j];
+                break;
+            }
+        }
+    }
+    for (i=0; i<n; i++)
+        printf("%4d ", b[i]);
+}
+int main() {
+    srand(time(NULL));
+    int n, i;
+    printf("vvedite n\nn = ");
+    scanf ("%d", &n);
+    int a[n];
+    fill(n, a);
+    for (i=0; i<n; i++)
+        printf("%4d ", a[i]);
+    printf("\n");
+    sp(a, n);
+    return 0;
 }
